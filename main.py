@@ -56,7 +56,7 @@ class Window(QDialog):
                 video = video.streams.get_lowest_resolution()
 
             try:
-                video.download('./downloaded-videos/')
+                video.download('./downloads/videos/')
                 self.Alert.setText("Downloading...")
                 self.previewImage.setText(video.get_file_path())
                 self.previewImage.setText(video.exists_at_path())
@@ -72,7 +72,7 @@ class Window(QDialog):
                     video = video.streams.get_highest_resolution()
                 elif quality == 'Low':
                     video = video.streams.get_lowest_resolution()
-                video.streams.first().download('./downloaded-playlists')
+                video.streams.first().download('./downloads/playlists/')
                 self.previewImage.setText(video.get_file_path())
                 self.previewImage.setText(video.exists_at_path())
         except:
