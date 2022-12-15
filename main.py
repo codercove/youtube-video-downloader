@@ -48,6 +48,7 @@ class Window(QDialog):
 
     def downloadVideo(self, link, quality):
         if link != "":
+            # Check Quality
             video = YouTube(link)
             if quality == 'High':
                 video = video.streams.get_highest_resolution()
