@@ -28,17 +28,16 @@ def start():
     print('Download Video    : 1')
     print('Download Playlist : 2')
     x = int(input('\nEnter the number to continue:'))
-    try:
-        if x == 1:
-            y = input('\nPaste the URL of Video:')
-            if y != "":
-                DownloadYoutube.downloadVideo(y)
-        elif x == 2:
-            y = input('\nPaste the URL od Playlist:')
-            if y != "":
-                DownloadYoutube.downloadPlaylist(y)
-    except:
-        print('Invalid Option Try Again')
+    if x == 1:
+        y = input('\nPaste the URL of Video:')
+        if y != "":
+            DownloadYoutube.downloadVideo(y)
+    elif x == 2:
+        y = input('\nPaste the URL od Playlist:')
+        if y != "":
+            DownloadYoutube.downloadPlaylist(y)
+    else:
+        print('Invalid Option')
 
 
 start()
