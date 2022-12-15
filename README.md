@@ -15,9 +15,10 @@
 
 <code>
 PyQt5
-<br>
+</code>
+<code>
 Pytube
 </code>
 <br>
 <hr>
-&copy; All rights reserved by <a>Sithika Dangampala</a>
+<span>&copy; All rights reserved by <a href="https://sithika.vercel.app" target="_blank">Sithika Dangampala</a></span>
