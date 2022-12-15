@@ -81,7 +81,7 @@ class Window(QDialog):
     def createForm(self):
         layout = QFormLayout()
         layout.addRow(QLabel("URL"), self.videoURL)
-        layout.addRow(QLabel("Select"), self.selectOP)
+        layout.addRow(QLabel("Type"), self.selectOP)
         layout.addRow(QLabel("Quality"), self.selectOPQuality)
         self.formGroupBox.setLayout(layout)
 
