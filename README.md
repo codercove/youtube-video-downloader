@@ -19,6 +19,12 @@ PyQt5
 <code>
 Pytube
 </code>
+
+### How to Use
+
+<code>Clone the project</code></br></br>
+<code>cd into project folder && open folder from terminal and run:</code></br></br>
+<code>python3 main.py</code></br></br>
 <br>
 <hr>
 <span>&copy; All rights reserved by <a href="https://sithika.vercel.app" target="_blank">Sithika Dangampala</a></span>
