@@ -44,7 +44,7 @@ class Window(QDialog):
             if (option == "Video"):
                 self.downloadVideo(URL, quality)
             elif (option == "Playlist"):
-                self.downloadPlaylist(URL, quality)
+                self.downloadPlaylist(URL)
 
     def downloadVideo(self, link, quality):
         if link != "":
@@ -64,19 +64,17 @@ class Window(QDialog):
                 self.Alert.setText('Error While Downloading Video...')
             self.Alert.setText("Video Downloaded Succesfully...")
 
-    def downloadPlaylist(self, links, quality):
+    def downloadPlaylist(self, links):
         p = Playlist(links)
         try:
+            self.Alert.setText("Downloading...")
             for video in p.videos:
-                if quality == 'High':
-                    video = video.streams.get_highest_resolution()
-                elif quality == 'Low':
-                    video = video.streams.get_lowest_resolution()
                 video.streams.first().download('./downloads/playlists/')
                 self.previewImage.setText(video.get_file_path())
                 self.previewImage.setText(video.exists_at_path())
         except:
             self.Alert.setText('Error While Downloading Playlist...')
+        self.Alert.setText("Playlist Downloaded Succesfully...")
 
     def createForm(self):
         layout = QFormLayout()
