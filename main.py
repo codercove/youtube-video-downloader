@@ -13,49 +13,67 @@ class Window(QDialog):
         self.setGeometry(100, 100, 300, 400)
         self.formGroupBox = QGroupBox('YT Downloader')
         self.selectOP = QComboBox()
+        self.selectOPQuality = QComboBox()
         self.selectOP.addItems(['Video', 'Playlist'])
+        self.selectOPQuality.addItems(['Low', 'High'])
         self.videoURL = QLineEdit()
         self.createForm()
+        self.previewImage = QLineEdit()
         self.buttonBox1 = QDialogButtonBox(QDialogButtonBox.Ok)
         self.buttonBox2 = QDialogButtonBox(QDialogButtonBox.Cancel)
         self.buttonBox1.accepted.connect(self.start)
         self.buttonBox2.rejected.connect(self.reject)
         self.Alert = QLineEdit()
+        self.previewImage.setText('All rights  reserved by ncoderlk')
         mainLayout = QVBoxLayout()
         mainLayout.addWidget(self.formGroupBox)
         mainLayout.addWidget(self.buttonBox1)
         mainLayout.addWidget(self.buttonBox2)
         mainLayout.addWidget(self.Alert)
+        mainLayout.addWidget(self.previewImage)
         self.setLayout(mainLayout)
         self.Alert.setText('No Error Found')
 
     def start(self):
         URL = self.videoURL.text()
         option = self.selectOP.currentText()
+        quality = self.selectOPQuality.currentText()
         if (URL == ""):
             self.Alert.setText('URL Box Cannot Be Empty')
         else:
             if (option == "Video"):
-                self.downloadVideo(URL)
+                self.downloadVideo(URL, quality)
             elif (option == "Playlist"):
-                self.downloadPlaylist(URL)
+                self.downloadPlaylist(URL, quality)
 
-    def downloadVideo(self, link):
+    def downloadVideo(self, link, quality):
         if link != "":
             video = YouTube(link)
-            video = video.streams.get_highest_resolution()
+            if quality == 'High':
+                video = video.streams.get_highest_resolution()
+            elif quality == 'Low':
+                video = video.streams.get_lowest_resolution()
+
             try:
-                video.download('./downloadedVideos/')
+                video.download('./downloaded-videos/')
                 self.Alert.setText("Downloading...")
+                self.previewImage.setText(video.get_file_path())
+                self.previewImage.setText(video.exists_at_path())
             except:
                 self.Alert.setText('Error While Downloading Video...')
             self.Alert.setText("Video Downloaded Succesfully...")
 
-    def downloadPlaylist(self, links):
+    def downloadPlaylist(self, links, quality):
         p = Playlist(links)
         try:
             for video in p.videos:
-                video.streams.first().download('./downloadedPlaylists')
+                if quality == 'High':
+                    video = video.streams.get_highest_resolution()
+                elif quality == 'Low':
+                    video = video.streams.get_lowest_resolution()
+                video.streams.first().download('./downloaded-playlists')
+                self.previewImage.setText(video.get_file_path())
+                self.previewImage.setText(video.exists_at_path())
         except:
             self.Alert.setText('Error While Downloading Playlist...')
 
@@ -63,6 +81,7 @@ class Window(QDialog):
         layout = QFormLayout()
         layout.addRow(QLabel("URL"), self.videoURL)
         layout.addRow(QLabel("Select"), self.selectOP)
+        layout.addRow(QLabel("Quality"), self.selectOPQuality)
         self.formGroupBox.setLayout(layout)
 
 
